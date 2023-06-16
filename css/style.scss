@@ -1,0 +1,608 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500&display=swap');
+
+$color-gray:#A39F9F;
+$color-white:#EBEBEB;
+$color-accent:#734B4B;
+$color-black:#585454;
+
+@function rem($v) {
+    @return ($v/15)+rem;
+}
+
+@mixin mq-mb {
+    @media (max-width:800px) {
+        @content;
+    }
+}
+
+@mixin hum($i) {
+    content: "";
+    display: block;
+    position: fixed;
+    width: rem(5);
+    right: $i;
+    background-color: $color-accent;
+    top: rem(30);
+    height: 45px;
+    z-index: 20000000;
+    transition: all 0.3s;
+    opacity: 0.8;
+
+    @include mq-mb() {
+        width: 45px;
+        height: rem(5);
+        top: $i;
+        right: rem(20);
+    }
+}
+
+@mixin hum_m {
+    @media (max-width:800px) {
+        background-color: #fff;
+        top: rem(40);
+    }
+}
+
+@mixin flex {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+@mixin inner() {
+    &__inner {
+        max-width: 1200px;
+        width: (560/640)*100%;
+        margin: auto;
+    }
+}
+
+@mixin line($leng:110%) {
+    content: "";
+    display: block;
+    width: $leng;
+    height: 2px;
+    margin-top: -4px;
+    background-color: $color-accent;
+}
+
+@mixin hd($ta:center) {
+    &__hd {
+        margin: rem(30) 0;
+        font-size: rem(24);
+        text-align: $ta;
+    }
+}
+
+@mixin fadein {
+    position: relative;
+    bottom: rem(15);
+    opacity: 0;
+
+    &.active {
+        bottom: 0;
+        opacity: 1;
+        transition: all 0.4s;
+    }
+}
+
+////////main///////////
+
+html {
+    font-size: (15/16)*100%;
+}
+
+body {
+    font-family: 'helvetica', 'Noto Sans JP',
+        sans-serif;
+    position: relative;
+    background-color: #ebe7e0;
+    color: $color-black;
+    margin: 0;
+    overflow: scroll;
+    letter-spacing: (50em/500);
+    margin: rem(30);
+    margin-bottom: 0;
+}
+
+a {
+    display: block;
+    color: $color-white;
+    height: auto;
+}
+
+img {
+    width: auto;
+    height: auto;
+    flex: 1;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+h1 {
+    font-family: '源ノ角ゴシック', 'helvetica',
+        'Noto Sans JP',
+        sans-serif,
+        sans-serif;
+    font-weight: 500;
+    font-size: rem(30);
+    width: fit-content;
+    color: $color-accent;
+}
+
+h2 {
+    font-family: '源ノ角ゴシック', 'helvetica',
+        'Noto Sans JP',
+        sans-serif,
+        sans-serif;
+    font-weight: 500;
+    font-size: rem(22);
+    margin: 0;
+    display: flex
+}
+
+
+.cp_embed_wrapper {
+    margin: rem(30) auto rem(30) 0;
+    max-width: 600px;
+}
+
+
+
+//////header////////////_______//
+.humbar {
+    background-color: rgba(0, 0, 0, 0) !important;
+    border: none;
+    z-index: 200000000000;
+    display: block;
+    height: 45px;
+    width: rem(45);
+    margin: 0;
+    position: fixed;
+    top: rem(30);
+    right: 0;
+
+    @include mq-mb() {
+        top: 0;
+        right: rem(20);
+    }
+
+    &.active {
+        right: rem(250);
+
+        @include mq-mb() {
+            right: rem(20);
+        }
+
+        &::before {
+            @include hum(rem(270));
+            transform: rotate(-225deg);
+            @include hum_m()
+        }
+
+        &::after {
+            @include hum(rem(270));
+            transform: rotate(225deg);
+            @include hum_m()
+        }
+    }
+
+    &::before {
+        @include hum(rem(20));
+
+    }
+
+    &::after {
+        @include hum(rem(40));
+
+    }
+}
+
+.header {
+    top: 0;
+    position: fixed;
+    right: rem(-245);
+    height: 100vh;
+    width: rem(250);
+    background-color: $color-accent;
+    color: #EBEBEB;
+    transition: all 0.3s;
+    z-index: 1000000;
+    opacity: 0.8;
+
+    @include mq-mb() {
+        width: 100vw;
+        top: -99.25vh;
+        right: 0;
+    }
+
+    &.active {
+        right: 0;
+        transition: all 0.3s;
+
+        @include mq-mb() {
+            top: 0;
+        }
+    }
+
+    &__inner {
+        display: none;
+        padding: rem(30);
+        text-align: right;
+
+        @include mq-mb() {
+            padding-top: rem(70);
+        }
+
+        & .txt {
+            margin-bottom: rem(15);
+            overflow: hidden;
+        }
+
+        &.active {
+            display: block;
+            @include fadein();
+        }
+    }
+}
+
+.top {
+    margin-bottom: rem(30)
+}
+
+.sitetop {
+    @include fadein();
+    width: fit-content;
+    font-size: rem(30);
+
+    &::after {
+        @include line();
+    }
+}
+
+//footer
+
+.footer {
+    background-color: $color-accent;
+    position: relative;
+    @include inner();
+    padding: rem(30) 0;
+    color: #fff;
+    width: 100vw;
+    left: rem(-30);
+    margin-top: rem(30)
+}
+
+///prof//////.///././/
+
+.prof {
+    @include fadein();
+
+    @include inner();
+    margin-bottom: rem(30);
+
+    & a {
+        color: $color-black;
+    }
+
+    @include mq-mb() {
+        display: block;
+        text-align: center
+    }
+
+    &__flex {
+        @include flex();
+
+        @include mq-mb() {
+            display: block;
+            margin: auto;
+        }
+    }
+
+    &__content {
+        align-items: center;
+        width: 60%;
+
+        &:first-child {
+            width: 25%;
+        }
+
+        @include mq-mb() {
+            width: 100%;
+            margin: auto;
+        }
+
+        & p {
+            margin-bottom: rem(15);
+        }
+    }
+
+    & .m {
+        display: none;
+    }
+
+    & .p {
+        display: block;
+    }
+
+    @include mq-mb() {
+        & .m {
+            display: block;
+        }
+
+        & .p {
+            display: none;
+        }
+
+    }
+
+    @include hd();
+
+    &__img {
+        width: 100%;
+        height: auto;
+
+        @include mq-mb() {
+            margin-bottom: rem(30);
+            width: rem(150);
+            height: auto
+        }
+    }
+}
+
+.tec {
+    @include inner();
+    @include hd(left);
+    @include fadein();
+
+    &__content {
+        align-items: center;
+        @include flex();
+
+        & img {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+        }
+    }
+
+    &__box {
+        width: 33%;
+        height: rem(60);
+        margin: auto;
+        text-align: center;
+        margin-bottom: rem(50);
+        font-style: italic;
+
+
+        @include mq-mb() {
+            width: 40%
+        }
+    }
+}
+
+/////work/////././
+
+.work {
+    @include inner();
+    @include fadein();
+    padding-top: rem(30);
+
+    &__content {
+        padding: rem(30) 0;
+        @include flex();
+
+        @include mq-mb() {
+            padding-bottom: 0;
+        }
+    }
+
+    &__tec {
+        font-size: rem(13);
+    }
+
+    &__box {
+        width: 30%;
+        margin: 0 auto rem(20) 0;
+        position: relative;
+        height: auto;
+        top: 0;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        @include mq-mb() {
+            width: 100%;
+            margin-bottom: rem(30);
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+
+        &__content {
+            padding: rem(15);
+            background-color: $color-white;
+            border-radius: 0 0 rem(5) rem(5);
+            color: $color-black;
+
+            @include mq-mb() {
+                display: block;
+            }
+        }
+
+        & a {
+            text-decoration: none;
+        }
+
+
+        &:first-of-type {
+            margin-left: 0;
+        }
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+
+        &:hover .work__img::after {
+            transform: skewY(0deg);
+            bottom: 0;
+            opacity: 0.9;
+        }
+    }
+
+    &__img {
+        position: relative;
+        overflow: hidden;
+        border-radius: rem(5) rem(5) 0 0;
+        width: 100%;
+        height: rem(200);
+        margin: 0 auto;
+
+        &::after {
+            display: flex;
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background-color: $color-accent;
+            color: #fff;
+            text-align: center;
+            z-index: 3232323232;
+            bottom: -100%;
+            left: 0;
+            opacity: 0.8;
+            transition: all 0.22s ease-in;
+        }
+    }
+}
+
+///contact////_/_
+
+.contact {
+    padding: rem(30) 0;
+    @include inner();
+    display: block;
+
+    & h2 {
+        margin-bottom: rem(30);
+    }
+
+    & input {
+        height: rem(30);
+        border-radius: rem(10);
+        width: 40%;
+        border: $color-accent 2px solid;
+        margin: rem(15) 0;
+        padding: rem(5) rem(3);
+        font-size: rem(15);
+
+        &[type="submit"] {
+            width: 50%;
+            display: block;
+            border-radius: rem(15);
+            background-color: $color-white;
+            color: $color-accent;
+
+            @include mq-mb() {
+                width: 100%;
+            }
+        }
+
+        @include mq-mb() {
+            width: 100%;
+        }
+    }
+
+    & textarea {
+        padding: rem(5);
+        margin-top: rem(30);
+        resize: none;
+        width: 50%;
+        height: rem(210);
+        border-radius: rem(10);
+        border: $color-accent 2px solid;
+
+        @include mq-mb() {
+            width: 100%;
+        }
+    }
+}
+
+//article///////f___/////
+
+.article {
+    @include inner();
+
+    &__top {
+        max-height: rem(400);
+    }
+
+    & h2 {
+        margin-bottom: rem(30);
+        width: auto;
+    }
+
+    & h3 {
+        margin: rem(30) 0;
+        width: fit-content;
+        padding: rem(5);
+        border-left: $color-accent 4px solid;
+        font-size: rem(20);
+        font-style: italic;
+
+        &::after {
+            @include line(140%);
+        }
+    }
+
+    & a {
+        color: $color-accent;
+    }
+
+    & img {
+        margin: rem(30) auto;
+    }
+
+    &__flex {
+        @include flex();
+
+        @include mq-mb() {
+            display: block;
+        }
+
+        & img {
+            margin: rem(30) auto;
+            max-width: 40%;
+            height: auto;
+
+            @include mq-mb() {
+                max-width: 100%;
+                margin: rem(30) auto;
+            }
+        }
+
+
+    }
+
+
+
+
+
+    &__jump {
+        margin-top: rem(60);
+
+        & p {
+            margin-bottom: rem(5);
+        }
+
+        & a {
+            margin-bottom: rem(15);
+        }
+    }
+}
